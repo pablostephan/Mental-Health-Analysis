@@ -1,0 +1,42 @@
+**DIAGNOSIS BY AGE GROUP**
+
+**Creation of Age Groups:**
+
+The **CASE WHEN** statement divides ages into specific groups (e.g., 20 years or less, 21 to 30 years, etc.) using logical comparisons with the **AGE** column.
+
+**Counting Diagnoses:**
+
+The **COUNT(*)** function counts the total number of records (diagnoses) in each age group and diagnosis type.
+
+**Grouping Data:**
+
+The **GROUP BY** clause groups the results by age group (**Age_group**) and diagnosis type, allowing for a count of diagnoses for each unique combination of age group and diagnosis.
+
+**Sorting Results:**
+
+The **ORDER BY** clause organizes the results:
+- By age group: The age groups are sorted, usually in ascending order.
+- By the number of diagnoses: Within each age group, diagnoses are sorted in descending order, showing the most frequent diagnoses first.
+
+**Summary:**
+
+The code extracts data from a medical diagnosis table, creates age groups, counts the number of diagnoses in each group, and sorts the results to facilitate analysis.
+
+```
+-- Analyzing diagnoses by age groups
+SELECT
+  CASE
+    WHEN AGE <= 20 THEN 'Under 20'
+    WHEN AGE <= 30 THEN '21 - 30'
+    WHEN AGE <= 40 THEN '31 - 40'
+    WHEN AGE <= 50 THEN '41 - 50'
+    WHEN AGE <= 60 THEN '51 - 60'
+    ELSE 'Above 60'
+  END AS Age_group,
+  Diagnosis,
+  COUNT(*) AS Qty_diagnosis_age
+FROM mental_health_diagnosis_treatment
+GROUP BY Age_group, Diagnosis
+ORDER BY Age_group, Qty_diagnosis_age DESC;
+```
+
